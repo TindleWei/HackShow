@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_dark"
+        android:padding="10dp">
+
+
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:text=""
+            android:textColor="@android:color/holo_green_light"
+            android:hint="input command..."
+            android:gravity="top"
+            android:textColorHint="@android:color/white"
+            android:textSize="20dp"
+            android:imeOptions="actionGo"/>
+
+    </RelativeLayout>
+
+</merge>
