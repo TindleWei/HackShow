@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
 import butterknife.Bind;
 import de.greenrobot.event.EventBus;
 import gamebuddy.game.hackshow.R;
@@ -55,8 +58,30 @@ public class MainActivity extends BaseActivity {
 
         initFragments();
 
-        attachKeyboardListeners();
+        KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
+            @Override
+            public void onVisibilityChanged(boolean isOpen) {
+                updateKeyboardStatusText(isOpen);
+            }
+        });
+
+        updateKeyboardStatusText(KeyboardVisibilityEvent.isKeyboardVisible(this));
     }
+
+
+    private void updateKeyboardStatusText(boolean isOpen) {
+
+        if(isOpen){
+            layout_top.setVisibility(View.GONE);
+            layout_bottom.setVisibility(View.GONE);
+        }else{
+            layout_top.setVisibility(View.VISIBLE);
+            layout_bottom.setVisibility(View.VISIBLE);
+        }
+
+//        Toast.makeText(this,String.format("keyboard is %s", (isOpen ? "visible" : "hidden")),1000).show();
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -101,22 +126,6 @@ public class MainActivity extends BaseActivity {
     public static int dp2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
-    }
-
-    // from BaseActivity Keyboard Listener
-
-    @Override
-    protected void onShowKeyboard(int keyboardHeight) {
-        // do things when keyboard is shown
-        layout_top.setVisibility(View.GONE);
-        layout_bottom.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void onHideKeyboard() {
-        // do things when keyboard is hidden
-        layout_top.setVisibility(View.VISIBLE);
-        layout_bottom.setVisibility(View.VISIBLE);
     }
 
 
