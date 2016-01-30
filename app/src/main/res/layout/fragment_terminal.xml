@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <gamebuddy.game.hackshow.view.vandor.HTextView
         android:id="@+id/terminal_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="20dp"
         android:layout_weight="1"
         android:background="@android:color/darker_gray"/>
 

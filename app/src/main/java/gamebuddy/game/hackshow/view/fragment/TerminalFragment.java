@@ -11,6 +11,7 @@ import butterknife.Bind;
 import de.greenrobot.event.EventBus;
 import gamebuddy.game.hackshow.R;
 import gamebuddy.game.hackshow.presenter.eventbus.EditClickEvent;
+import gamebuddy.game.hackshow.view.vandor.HTextView;
 
 /**
  * describe
@@ -20,10 +21,20 @@ import gamebuddy.game.hackshow.presenter.eventbus.EditClickEvent;
 public class TerminalFragment extends BaseFragment{
 
     @Bind(R.id.terminal_content)
-    TextView terminal_content;
+    HTextView terminal_content;
 
     @Bind(R.id.terminal_edit)
     EditText terminal_edit;
+
+    String text = "THis is a demo of Hack Show.\nTHis is a demo of Hack Show." +
+            "\n" +
+            "THis is a demo of Hack Show." +
+            "\n" +
+            "THis is a demo of Hack Show." +
+            "\n" +
+            "THis is a demo of Hack Show." +
+            "\n" +
+            "THis is a demo of Hack Show.";
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -39,12 +50,14 @@ public class TerminalFragment extends BaseFragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        terminal_content.setText("sdf");
+        TextView mTextView;
+
+        terminal_content.setText("Hello...");
 
         terminal_content.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                terminal_content.animateText(text);
             }
         });
 

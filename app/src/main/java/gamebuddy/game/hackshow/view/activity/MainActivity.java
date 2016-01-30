@@ -61,15 +61,15 @@ public class MainActivity extends BaseActivity {
         KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
             @Override
             public void onVisibilityChanged(boolean isOpen) {
-                updateKeyboardStatusText(isOpen);
+                updateKeyboardStatus(isOpen);
             }
         });
 
-        updateKeyboardStatusText(KeyboardVisibilityEvent.isKeyboardVisible(this));
+        updateKeyboardStatus(KeyboardVisibilityEvent.isKeyboardVisible(this));
     }
 
 
-    private void updateKeyboardStatusText(boolean isOpen) {
+    private void updateKeyboardStatus(boolean isOpen) {
 
         if(isOpen){
             layout_top.setVisibility(View.GONE);
@@ -78,7 +78,6 @@ public class MainActivity extends BaseActivity {
             layout_top.setVisibility(View.VISIBLE);
             layout_bottom.setVisibility(View.VISIBLE);
         }
-
 //        Toast.makeText(this,String.format("keyboard is %s", (isOpen ? "visible" : "hidden")),1000).show();
     }
 
@@ -103,9 +102,6 @@ public class MainActivity extends BaseActivity {
         ViewGroup.LayoutParams lp = fragment_container.getLayoutParams();
         lp.height = mScreenHeight/2;
         fragment_container.setLayoutParams(lp);
-//        fragment_container.requestLayout();
-//        layout_top.setVisibility(View.GONE);
-//        layout_bottom.setVisibility(View.GONE);
     }
     /**
      * 获取屏幕的宽高密度
