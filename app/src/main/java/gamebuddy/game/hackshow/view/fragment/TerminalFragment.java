@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import de.greenrobot.event.EventBus;
 import gamebuddy.game.hackshow.R;
@@ -46,6 +49,8 @@ public class TerminalFragment extends BaseFragment{
         return inflater.inflate(R.layout.fragment_terminal, container, false);
     }
 
+    List<String> testLines = new ArrayList<>();
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,10 +59,16 @@ public class TerminalFragment extends BaseFragment{
 
         terminal_content.setText("Hello...");
 
+        testLines.add("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        testLines.add("bbbbb");
+        testLines.add("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+                +"cccccccccccccccccc");
+
         terminal_content.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                terminal_content.animateText(text);
+                terminal_content.reset();
+                terminal_content.animateText(testLines);
             }
         });
 
@@ -69,6 +80,7 @@ public class TerminalFragment extends BaseFragment{
             }
         });
     }
+
 
 
 }
