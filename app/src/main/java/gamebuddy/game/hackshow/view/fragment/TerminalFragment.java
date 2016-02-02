@@ -1,11 +1,11 @@
 package gamebuddy.game.hackshow.view.fragment;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +29,7 @@ public class TerminalFragment extends BaseFragment{
     @Bind(R.id.terminal_edit)
     EditText terminal_edit;
 
-    String text = "THis is a demo of Hack Show.\nTHis is a demo of Hack Show." +
-            "\n" +
-            "THis is a demo of Hack Show." +
-            "\n" +
-            "THis is a demo of Hack Show." +
-            "\n" +
-            "THis is a demo of Hack Show." +
-            "\n" +
-            "THis is a demo of Hack Show.";
+    String text = "THis is hack show.\n\n\n\n\n\n\n\n\n\n\n\n";
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -55,11 +47,15 @@ public class TerminalFragment extends BaseFragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView mTextView;
 
-        terminal_content.setText("Hello...");
+        terminal_content.setText(text);
+        terminal_content.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         testLines.add("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        testLines.add("bbbbb");
+        testLines.add("bbbbb");
+        testLines.add("bbbbb");
+        testLines.add("bbbbb");
         testLines.add("bbbbb");
         testLines.add("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
                 +"cccccccccccccccccc");

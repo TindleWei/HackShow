@@ -51,7 +51,7 @@ public class HTextView extends TextView {
     protected void onDraw(Canvas canvas) {
 
         // 方法1
-//        //super.onDraw(canvas);  // note this is Important!!
+//       // super.onDraw(canvas);  // note this is Important!!
 //        mIHText.onDraw(canvas);
 
         // 方法2

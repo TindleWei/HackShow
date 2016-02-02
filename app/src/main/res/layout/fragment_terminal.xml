@@ -8,17 +8,18 @@
         android:id="@+id/terminal_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="20dp"
-        android:textColor="@android:color/holo_green_dark"
         android:layout_weight="1"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:scrollbars="vertical"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/terminal_edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@android:color/holo_red_light"/>
+        android:background="@android:color/holo_red_light" />
 
 
 </LinearLayout>
