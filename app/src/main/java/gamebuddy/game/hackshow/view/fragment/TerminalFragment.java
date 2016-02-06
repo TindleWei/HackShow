@@ -47,7 +47,6 @@ public class TerminalFragment extends BaseFragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         terminal_content.setText(text);
         terminal_content.setMovementMethod(ScrollingMovementMethod.getInstance());
 
@@ -76,7 +75,5 @@ public class TerminalFragment extends BaseFragment{
             }
         });
     }
-
-
 
 }

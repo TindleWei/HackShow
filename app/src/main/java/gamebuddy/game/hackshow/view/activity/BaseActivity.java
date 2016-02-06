@@ -7,7 +7,6 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 
 import com.github.pwittchen.prefser.library.Prefser;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
@@ -42,13 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(mContext);
+//        MobclickAgent.onResume(mContext);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(mContext);
+//        MobclickAgent.onPause(mContext);
     }
 
     @Override

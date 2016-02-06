@@ -19,7 +19,7 @@ import de.greenrobot.event.EventBus;
 import gamebuddy.game.hackshow.R;
 import gamebuddy.game.hackshow.presenter.eventbus.EditClickEvent;
 import gamebuddy.game.hackshow.view.fragment.BaseFragment;
-import gamebuddy.game.hackshow.view.fragment.TerminalFragment;
+import gamebuddy.game.hackshow.view.fragment.M0206Fragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -90,7 +90,8 @@ public class MainActivity extends BaseActivity {
 
     public void initFragments(){
         fragmentManager = getSupportFragmentManager();
-        mFragment = new TerminalFragment();
+//        mFragment = new TerminalFragment();
+        mFragment = new M0206Fragment();
 
         FragmentTransaction trans = fragmentManager.beginTransaction();
         trans.add(R.id.fragment_container, mFragment, "TerminalFragment");

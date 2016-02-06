@@ -1,4 +1,4 @@
-package gamebuddy.game.hackshow.view.view;
+package gamebuddy.game.hackshow.view.view.adapter;
 
 import android.content.Context;
 import android.widget.LinearLayout;
