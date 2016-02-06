@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1f1f1f">
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linear_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
             <gamebuddy.game.hackshow.view.view.TerminalTextView
                 android:id="@+id/text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="40dp"
-                android:background="#f0f"
-                android:textSize="16dp"/>
+                android:background="#1f1f1f"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/edit_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:layout_marginBottom="60dp"
+                android:textColor="@android:color/holo_green_dark"
+                android:background="@null"
+                android:visibility="visible" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

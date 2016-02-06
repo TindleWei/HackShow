@@ -32,6 +32,9 @@ public class TerminalTextView extends TextView {
     //最终显示的行数
     private int actualLines = 0;
 
+    //最终显示的行数 的上一次记录
+    private int oldLines = 0;
+
     public TerminalTextView(Context context) {
         super(context);
         init();
@@ -56,6 +59,7 @@ public class TerminalTextView extends TextView {
 
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(this.getTextSize());
+        textPaint.setColor(this.getCurrentTextColor());
 
         wrapperLines.clear();
         for (int i = 0; i < lines.size(); i++) {
@@ -92,8 +96,15 @@ public class TerminalTextView extends TextView {
 
         drawLastLine(canvas, y);
 
-        this.requestLayout();
         this.invalidate();
+
+        if(actualLines!=0&&actualLines!=oldLines){
+            oldLines = actualLines;
+        }else{
+            return;
+        }
+
+        this.requestLayout();
     }
 
     public void drawLastLine(Canvas canvas, float y) {
@@ -155,6 +166,7 @@ public class TerminalTextView extends TextView {
         if(height<100){
             height=100;
         }
+
         Log.e("FLAG", "line: "+actualLines);
         setMeasuredDimension(width, height);
 

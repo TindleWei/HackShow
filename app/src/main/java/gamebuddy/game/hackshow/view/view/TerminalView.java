@@ -1,6 +1,8 @@
 package gamebuddy.game.hackshow.view.view;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
 import android.view.View;
@@ -62,6 +64,39 @@ public class TerminalView extends FrameLayout{
             }
         });
 
+        editView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                limitEditLines(s);
+            }
+        });
+
+    }
+
+    public void limitEditLines(Editable s){
+        if(editView.getLineCount()>3){
+            String str = s.toString();
+            int cursorStart = editView.getSelectionStart();
+            int cursorEnd = editView.getSelectionEnd();
+            if(cursorStart==cursorEnd && cursorStart<str.length()&&cursorStart>=1){
+                str = str.substring(0, cursorStart-1)+str.substring(cursorStart);
+            }else{
+                str = str.substring(0, s.length()-1);
+            }
+            editView.setText(str);
+            editView.setSelection(editView.getText().length());
+        }
     }
 
     private List<String> testLines = new ArrayList<>();
@@ -70,6 +105,26 @@ public class TerminalView extends FrameLayout{
 
         if(testLines.size()==0){
             testLines.add("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
+            testLines.add("bbbbb");
             testLines.add("bbbbb");
             testLines.add("bbbbb");
             testLines.add("bbbbb");
