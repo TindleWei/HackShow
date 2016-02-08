@@ -57,10 +57,12 @@ public class TerminalTextView extends TextView {
     public void animateText(List<String> lines) {
         if (lines.size() == 0) return;
 
+        // 初始画笔
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(this.getTextSize());
         textPaint.setColor(this.getCurrentTextColor());
 
+        // 填充数据
         wrapperLines.clear();
         for (int i = 0; i < lines.size(); i++) {
             textToDraw = lines.get(i);
@@ -100,11 +102,13 @@ public class TerminalTextView extends TextView {
 
         if(actualLines!=0&&actualLines!=oldLines){
             oldLines = actualLines;
+            this.requestLayout();
         }else{
+            // 行数不变，不重新绘制高度
             return;
         }
 
-        this.requestLayout();
+
     }
 
     public void drawLastLine(Canvas canvas, float y) {
@@ -169,6 +173,5 @@ public class TerminalTextView extends TextView {
 
         Log.e("FLAG", "line: "+actualLines);
         setMeasuredDimension(width, height);
-
     }
 }
