@@ -5,11 +5,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +63,7 @@ public class TerminalView extends FrameLayout{
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startShow();
+//                startShow();
             }
         });
 
@@ -79,6 +82,22 @@ public class TerminalView extends FrameLayout{
             public void afterTextChanged(Editable s) {
 
                 limitEditLines(s);
+            }
+        });
+
+        editView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    if(v.getText().toString().trim().equals("")){
+                        return false;
+                    }
+                    testLines.add(v.getText().toString());
+                    v.setText("");
+                    startShow();
+                }
+                return false;
             }
         });
 
@@ -104,34 +123,17 @@ public class TerminalView extends FrameLayout{
     public void startShow() {
 
         if(testLines.size()==0){
-            testLines.add("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            testLines.add("Hi, buddy!");
+            testLines.add("Welcome to hack world!");
+            testLines.add("Here you can input your order.");
+            testLines.add("And our console will answer you.");
             testLines.add("bbbbb");
             testLines.add("bbbbb");
             testLines.add("bbbbb");
             testLines.add("bbbbb");
             testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
-                    +"cccccccccccccccccc");
+            testLines.add("Now I wanna say something blablablablabal, and blablablabla"
+                    +"blablablablablablablablabla");
         }
 
         textView.setMovementMethod(ScrollingMovementMethod.getInstance());
