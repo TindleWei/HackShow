@@ -34,9 +34,12 @@ public class MatrixView extends View {
     int containerWidth;
     int containerHeight;
 
-    // 动画集合
+    // 动画集合  //下标小于chars.length的是字符Line,下标大于chars.length的是无字符Line
     List<ValueAnimator> animatorList;
     List<MatrixLineEntity> matrixList;
+
+    int totalLineNum;
+    float totalStartOffset;
 
     public MatrixView(Context context) {
         super(context);
@@ -91,7 +94,16 @@ public class MatrixView extends View {
         animatorList = new ArrayList<>();
         matrixList = new ArrayList<>();
 
-        for (int i = 0; i < chars.length; i++) {
+        //计算屏幕可以放置的列数, 奇数个字符和偶数个字符的计算方法不一样
+        if (content.length() % 2 == 0) {
+            totalLineNum = (int) (screenWidth / textSize);
+            totalStartOffset = (screenWidth - textSize * totalLineNum) / 2;
+        } else {
+            totalLineNum = ((int) ((screenWidth / 2 - textSize / 2) / textSize)) * 2 + 1;
+            totalStartOffset = (screenWidth - textSize * totalLineNum) / 2;
+        }
+
+        for (int i = 0; i < chars.length + totalLineNum; i++) {
             final int index = i;
             final MatrixLineEntity matrixLine = new MatrixLineEntity();
             matrixLine.progress = 1f;
@@ -99,19 +111,19 @@ public class MatrixView extends View {
             matrixList.add(matrixLine);
 
             ValueAnimator valueAnimator2 = ValueAnimator.ofFloat(1, 0)
-                    .setDuration((long) 1000);
+                    .setDuration(i < chars.length ? (long) 1000 : (long) 2000);
             valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     if (index > matrixList.size() - 1) return;
                     matrixList.get(index).progress = (float) animation.getAnimatedValue();
+                    invalidate();
                 }
             });
-            int randomDelay = (int) (Math.random() * 2000);
+            int randomDelay = i < chars.length ? (int) (Math.random() * 2000 + 800) : ((int) (Math.random() * 2000));
             valueAnimator2.setStartDelay(randomDelay);
             valueAnimator2.start();
         }
-
         invalidate();
     }
 
@@ -124,35 +136,58 @@ public class MatrixView extends View {
         }
 
         char[] chars = contentStr.toCharArray();
-        for (int j = 0; j < chars.length; j++) {
+        for (int j = 0; j < chars.length + totalLineNum; j++) {
             MatrixLineEntity matrixLine = matrixList.get(j);
 
-            float y = containerHeight / 2 - textPaint.getTextSize() / 2 - matrixLine.progress * containerHeight / 2;
-            float x = beginRectX + j * textPaint.getTextSize() * 2;
+            if (matrixLine.progress == 1) {
+                continue;
+            }
 
-            if (matrixLine.progress == 0) {
-                if (matrixLine.totalNum > 0) {
-                    matrixLine.totalNum--;
+            float y = 0;
+            float x = 0;
+            if (j < chars.length) {
+                y = containerHeight / 2 - textPaint.getTextSize() / 2 - matrixLine.progress * containerHeight / 2;
+                x = beginRectX + j * textPaint.getTextSize() * 2;
+
+                if (matrixLine.progress == 0) {
+                    if (matrixLine.totalNum > 0) {
+                        matrixLine.totalNum--;
+                    }
+                }
+
+                if (matrixLine.totalNum <= 0) {
+                    canvas.drawText(String.valueOf(chars[j % 8]).toUpperCase(), x, y, textPaint2);
+                    y = y - textPaint2.getTextSize() * lineMul;
+                } else {
+                    canvas.drawText(randomLetter(), x, y, textPaint2);
+                    y = y - textPaint2.getTextSize() * lineMul;
+                }
+
+                for (int i = 1; i < matrixLine.totalNum; i++) {
+                    textPaint.setAlpha(255 - 20 * i);
+                    canvas.drawText(randomLetter(), x, y, textPaint);
+                    y = y - textPaint.getTextSize() * lineMul;
+                }
+            } else {
+                y = containerHeight + textPaint.getTextSize() / 2 - matrixLine.progress * containerHeight;
+                x = totalStartOffset + (j - chars.length) * textPaint2.getTextSize();
+
+                if (matrixLine.progress == 0) {
+                    if (matrixLine.totalNum > 0) {
+                        matrixLine.totalNum--;
+                    }
+                }
+
+                for (int i = 0; i < matrixLine.totalNum; i++) {
+                    textPaint.setAlpha(255 - 20 * i);
+                    canvas.drawText(randomLetter(), x, y, textPaint);
+                    y = y - textPaint.getTextSize() * lineMul;
                 }
             }
 
-            if (matrixLine.totalNum <= 0) {
-                canvas.drawText(String.valueOf(chars[j]).toUpperCase(), x, y, textPaint2);
-                y = y - textPaint2.getTextSize() * lineMul;
-            } else {
-                canvas.drawText(randomLetter(), x, y, textPaint2);
-                y = y - textPaint2.getTextSize() * lineMul;
-            }
 
-            for (int i = 1; i < matrixLine.totalNum; i++) {
-                textPaint.setAlpha(255 - 20 * i);
-                canvas.drawText(randomLetter(), x, y, textPaint);
-                y = y - textPaint.getTextSize() * lineMul;
-            }
         }
         postInvalidateDelayed(32);
-
-        drawFullMatrixLine(canvas);
     }
 
     @Override
@@ -168,9 +203,5 @@ public class MatrixView extends View {
         int letterRandom = (int) (Math.random() * 26 + 65);
         char letter = (char) letterRandom;
         return String.valueOf(letter);
-    }
-
-    public void drawFullMatrixLine(Canvas canvas) {
-
     }
 }
