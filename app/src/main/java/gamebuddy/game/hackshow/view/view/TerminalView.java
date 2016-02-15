@@ -104,7 +104,7 @@ public class TerminalView extends FrameLayout{
 
                     String content = v.getText().toString().trim();
                     if(content.equals("")){
-                        return false;
+                        return true;
                     } else {
                         testLines.add(content);
                         v.setText("");
@@ -113,7 +113,7 @@ public class TerminalView extends FrameLayout{
                         terminalChecker.firstCheck(content);
                     }
                 }
-                return false;
+                return true;
             }
         });
 
