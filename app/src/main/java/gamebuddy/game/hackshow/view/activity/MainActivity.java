@@ -1,6 +1,5 @@
 package gamebuddy.game.hackshow.view.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -90,7 +89,6 @@ public class MainActivity extends BaseActivity {
 
     public void initFragments(){
         fragmentManager = getSupportFragmentManager();
-//        mFragment = new TerminalFragment();
         mFragment = new M0206Fragment();
 
         FragmentTransaction trans = fragmentManager.beginTransaction();
@@ -110,8 +108,7 @@ public class MainActivity extends BaseActivity {
     public void getScreenSize() {
         if (mScreenHeight != 0) return;
 
-        DisplayMetrics metric = new DisplayMetrics();
-        ((Activity) this).getWindowManager().getDefaultDisplay().getMetrics(metric);
+        DisplayMetrics metric = getBaseContext().getResources().getDisplayMetrics();
         mScreenWidth = metric.widthPixels;
         mScreenHeight = metric.heightPixels;
         mDensity = metric.density;
@@ -120,10 +117,11 @@ public class MainActivity extends BaseActivity {
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
-    public static int dp2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+    public int dp2px(Context context, float dpValue) {
+        if(mDensity==0){
+            mDensity = context.getResources().getDisplayMetrics().density;
+        }
+        return (int) (dpValue * mDensity + 0.5f);
     }
-
 
 }

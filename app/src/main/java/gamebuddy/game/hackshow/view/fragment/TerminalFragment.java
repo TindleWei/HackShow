@@ -17,10 +17,11 @@ import gamebuddy.game.hackshow.presenter.eventbus.EditClickEvent;
 import gamebuddy.game.hackshow.view.vandor.HTextView;
 
 /**
- * describe
+ * 这里是用的单独的HTextView
  * created by tindle
  * created time 16/1/15 下午1:36
  */
+@Deprecated
 public class TerminalFragment extends BaseFragment{
 
     @Bind(R.id.terminal_content)

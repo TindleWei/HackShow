@@ -7,8 +7,8 @@ package gamebuddy.game.hackshow.core.check;
  */
 public class TerminalChecker {
 
-    interface Callback {
-        String onBackResult();
+    public interface Callback {
+        void onBackResult(String result);
     }
 
     Callback mCallback;
@@ -17,14 +17,22 @@ public class TerminalChecker {
         this.mCallback = callback;
     }
 
-    public void firstCheck(String result){
-        if(result.startsWith("ls")){
-            goCheckLs(result);
+    public void firstCheck(String content){
+        if(content.startsWith("ls")){
+            goCheckLs(content);
+            return;
         }
 
-        if(result.startsWith("chmod")){
-
+        if(content.startsWith("chmod")){
+            return;
         }
+
+        if(content.startsWith("scan")){
+            putBack("Begin scanning...");
+            return;
+        }
+
+        putBack("command not found");
     }
 
     public void goCheckLs(String result){
@@ -38,6 +46,14 @@ public class TerminalChecker {
 
         if(result.contains("-a")){
 
+        }
+    }
+
+    public void putBack(String result){
+        if(mCallback==null){
+            return;
+        } else {
+            mCallback.onBackResult(result);
         }
     }
 

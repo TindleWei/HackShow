@@ -148,7 +148,11 @@ public class TerminalTextView extends TextView {
         }
 
         if (currentLength < allLength) {
-//            if (lastLine.charAt(currentLength) == ' ') {
+
+//            if(currentLength>=textLines.get(textLines.size()-1).length()){
+//                return;
+//            }
+//            if (textLines.get(textLines.size()-1).charAt(currentLength) == ' ') {
 //                postInvalidateDelayed(48);
 //            } else {
 //                postInvalidateDelayed(16);

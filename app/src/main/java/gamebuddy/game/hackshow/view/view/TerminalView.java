@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gamebuddy.game.hackshow.R;
+import gamebuddy.game.hackshow.core.check.TerminalChecker;
 
 /**
  * describe
@@ -31,6 +32,8 @@ public class TerminalView extends FrameLayout{
     private LinearLayout linearView;
     private TerminalTextView textView;
     private EditText editView;
+
+    TerminalChecker terminalChecker;
 
     public TerminalView(Context context) {
         super(context);
@@ -55,6 +58,14 @@ public class TerminalView extends FrameLayout{
         editView = (EditText)containerView.findViewById(R.id.edit_view);
         this.addView(containerView);
 
+        terminalChecker = new TerminalChecker(new TerminalChecker.Callback() {
+            @Override
+            public void onBackResult(String result) {
+                testLines.add(result);
+                startShow();
+            }
+        });
+
         initEvent();
     }
 
@@ -63,7 +74,7 @@ public class TerminalView extends FrameLayout{
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startShow();
+                startShow();
             }
         });
 
@@ -90,12 +101,17 @@ public class TerminalView extends FrameLayout{
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
                 if(actionId == EditorInfo.IME_ACTION_DONE){
-                    if(v.getText().toString().trim().equals("")){
+
+                    String content = v.getText().toString().trim();
+                    if(content.equals("")){
                         return false;
+                    } else {
+                        testLines.add(content);
+                        v.setText("");
+                        startShow();
+
+                        terminalChecker.firstCheck(content);
                     }
-                    testLines.add(v.getText().toString());
-                    v.setText("");
-                    startShow();
                 }
                 return false;
             }
