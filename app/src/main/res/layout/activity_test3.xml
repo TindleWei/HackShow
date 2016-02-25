@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <gamebuddy.game.hackshow.view.view.StarwarView
+        android:id="@+id/starwar_view"
+        android:layout_width="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/demotext2"
+        android:textSize="30sp"
+        android:textColor="@android:color/holo_green_light"/>
+
+
+</LinearLayout>
