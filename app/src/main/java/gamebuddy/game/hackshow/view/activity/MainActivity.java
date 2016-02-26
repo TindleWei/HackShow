@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -65,6 +68,17 @@ public class MainActivity extends BaseActivity {
         });
 
         updateKeyboardStatus(KeyboardVisibilityEvent.isKeyboardVisible(this));
+
+        initHeader();
+    }
+
+    public void initHeader(){
+        ImageView iv_profile = (ImageView)findViewById(R.id.iv_profile);
+        int rest = R.drawable.computer_help_me;
+        Glide.with(mContext)
+                .load(rest)
+                .placeholder(R.drawable.computer_help_me)
+                .into(iv_profile);
     }
 
 
