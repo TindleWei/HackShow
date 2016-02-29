@@ -21,7 +21,7 @@ public class LoginActivity extends BaseActivity{
 
     ArrayList<String> textLines = new ArrayList<>();
 
-    static int indexLine = 0;
+    int indexLine = 0;
 
     @Override
     protected int getLayoutResId() {

@@ -104,8 +104,6 @@ public class TerminalTextView extends TextView {
 
         drawLastLine(canvas, y);
 
-
-
         if (actualLines != 0 && actualLines != oldLines) {
             oldLines = actualLines;
             this.requestLayout();

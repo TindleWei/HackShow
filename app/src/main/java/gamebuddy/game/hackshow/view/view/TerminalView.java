@@ -3,6 +3,7 @@ package gamebuddy.game.hackshow.view.view;
 import android.content.Context;
 import android.graphics.Paint;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
@@ -111,6 +112,9 @@ public class TerminalView extends FrameLayout{
                 limitEditLines(s);
             }
         });
+
+        editView.setRawInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        editView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         editView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

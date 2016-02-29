@@ -5,10 +5,13 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import gamebuddy.game.hackshow.R;
@@ -108,6 +111,23 @@ public class TestActivity extends AppCompatActivity {
                         + "\nstatusBar height: " + getStatusBarHeight(getBaseContext())
                         + "\nnavigation height: " + getNavigationBarHeight(getBaseContext()));
 
+            }
+        });
+
+        tv.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        tv.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        tv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    int fuck = 9;
+                    int a = fuck;
+                    return true;
+                }
+                return false;
             }
         });
     }
