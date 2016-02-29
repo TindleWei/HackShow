@@ -1,6 +1,7 @@
 package gamebuddy.game.hackshow.view.view;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
@@ -67,6 +68,9 @@ public class TerminalView extends FrameLayout{
         linearView = (LinearLayout)containerView.findViewById(R.id.linear_view);
         textView = (TerminalTextView)containerView.findViewById(R.id.text_view);
         editView = (EditText)containerView.findViewById(R.id.edit_view);
+        Paint editPaint = editView.getPaint();
+        editPaint.setShadowLayer(10, 0, 0, 0xff99cc00);
+
         this.addView(containerView);
 
         terminalChecker = new CommandChecker(new CommandChecker.Callback() {
@@ -79,13 +83,6 @@ public class TerminalView extends FrameLayout{
         });
 
         initEvent();
-
-//        textView.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                initData();
-//            }
-//        }, 600);
     }
 
     public void initEvent() {
@@ -159,25 +156,6 @@ public class TerminalView extends FrameLayout{
         textView.setMovementMethod(ScrollingMovementMethod.getInstance());
         textView.reset();
         textView.animateText(testLines);
-    }
-
-    public void initData(){
-        if(testLines.size()>0){
-            return;
-        }
-        if(mCheckerType==CHECKER_TYPE_LOGIN){
-            testLines.add("Wake up, matrix has you.");
-            testLines.add("We gonna help you.");
-            testLines.add("First, you need told us your name.");
-            textView.reset();
-            textView.animateText(testLines);
-            textView.invalidate();
-
-        }else if(mCheckerType==CHECKER_TYPE_COMMAND){
-            testLines.add("Now, you are in matrix");
-            textView.reset();
-            textView.animateText(testLines);
-        }
     }
 
     public void injectTextLine(String line){

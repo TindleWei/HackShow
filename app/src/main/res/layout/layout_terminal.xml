@@ -30,10 +30,15 @@
                 android:layout_marginBottom="60dp"
                 android:background="@null"
                 android:imeOptions="actionDone"
-                android:inputType="text"
-                android:maxLines="3"
                 android:textColor="@android:color/holo_green_dark"
+
+                android:maxLines="3"
+
                 android:visibility="visible" />
+
+            <!--android:inputType="textMultiLine|textNoSuggestions"-->
+            <!--android:textCursorDrawable="@drawable/edit_cursor"-->
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

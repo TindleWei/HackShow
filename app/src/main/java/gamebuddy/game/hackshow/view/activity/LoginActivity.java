@@ -34,15 +34,12 @@ public class LoginActivity extends BaseActivity{
 
         indexLine = 0;
 
-        textLines.add("Hello neo!");
-        textLines.add("What's your name?");
-        textLines.add("This is login test");
-        textLines.add("I can say anything.");
-        textLines.add("Blablabla, blablabla.");
+        textLines.add("Wake up.");
+        textLines.add("Matrix has you.");
+        textLines.add("We gonna help you out.");
+        textLines.add("First, you need to tell us your name:");
 
         terminalView.initWithType(TerminalView.CHECKER_TYPE_LOGIN);
-
-
 
         terminalView.postDelayed(new Runnable() {
             @Override
@@ -66,7 +63,6 @@ public class LoginActivity extends BaseActivity{
                 },1000);
             }
         });
-
 
 
     }
