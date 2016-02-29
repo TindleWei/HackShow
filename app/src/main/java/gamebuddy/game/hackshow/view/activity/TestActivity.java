@@ -26,15 +26,15 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Calculate
-//        setContentView(R.layout.activity_test);
-//        init();
+        setContentView(R.layout.activity_test);
+        init();
 
         // Matrix
 //        setContentView(R.layout.activity_test2);
 //        init2();
 
-        setContentView(R.layout.activity_test3);
-        init3();
+//        setContentView(R.layout.activity_test3);
+//        init3();
     }
 
     public void init3() {
@@ -71,7 +71,12 @@ public class TestActivity extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.test_tv1);
         final TextView tv2 = (TextView) findViewById(R.id.test_tv2);
 
+        int color = android.R.color.holo_green_light;
         Paint textPaint = tv.getPaint();
+        textPaint.setColor(getResources().getColor(color));
+        // 设定阴影(柔边, X 轴位移, Y 轴位移, 阴影颜色)
+        textPaint.setShadowLayer(25, 0, 0, 0xff99cc00);
+        tv.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         float width = textPaint.measureText(tv.getText().toString());
         tv2.setText("" + width);
 

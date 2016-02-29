@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gamebuddy.game.hackshow.R;
-import gamebuddy.game.hackshow.core.check.TerminalChecker;
+import gamebuddy.game.hackshow.core.check.CommandChecker;
 
 /**
  * describe
@@ -27,13 +27,19 @@ import gamebuddy.game.hackshow.core.check.TerminalChecker;
  */
 public class TerminalView extends FrameLayout{
 
+    public static final int CHECKER_TYPE_LOGIN = 0;
+    public static final int CHECKER_TYPE_COMMAND = 1;
+    private int mCheckerType = 1;
+
     private View containerView;
     private ScrollView scrollView;
     private LinearLayout linearView;
     private TerminalTextView textView;
     private EditText editView;
 
-    TerminalChecker terminalChecker;
+    private List<String> testLines = new ArrayList<>();
+
+    CommandChecker terminalChecker;
 
     public TerminalView(Context context) {
         super(context);
@@ -50,7 +56,12 @@ public class TerminalView extends FrameLayout{
         init();
     }
 
-    public void init(){
+    public void initWithType(int type){
+        mCheckerType = type;
+        init();
+    }
+
+    private void init(){
         containerView = inflate(this.getContext(), R.layout.layout_terminal, null);
         scrollView = (ScrollView)containerView.findViewById(R.id.scroll_view);
         linearView = (LinearLayout)containerView.findViewById(R.id.linear_view);
@@ -58,15 +69,23 @@ public class TerminalView extends FrameLayout{
         editView = (EditText)containerView.findViewById(R.id.edit_view);
         this.addView(containerView);
 
-        terminalChecker = new TerminalChecker(new TerminalChecker.Callback() {
+        terminalChecker = new CommandChecker(new CommandChecker.Callback() {
             @Override
             public void onBackResult(String result) {
                 testLines.add(result);
                 startShow();
+                textView.invalidate();
             }
         });
 
         initEvent();
+
+//        textView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                initData();
+//            }
+//        }, 600);
     }
 
     public void initEvent() {
@@ -100,17 +119,17 @@ public class TerminalView extends FrameLayout{
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-                if(actionId == EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
 
                     String content = v.getText().toString().trim();
-                    if(content.equals("")){
+                    if (content.equals("")) {
                         return true;
                     } else {
                         testLines.add(content);
                         v.setText("");
                         startShow();
 
-                        terminalChecker.firstCheck(content);
+                        terminalChecker.startCheck(content);
                     }
                 }
                 return true;
@@ -134,26 +153,42 @@ public class TerminalView extends FrameLayout{
         }
     }
 
-    private List<String> testLines = new ArrayList<>();
 
     public void startShow() {
-
-        if(testLines.size()==0){
-            testLines.add("Hi, buddy!");
-            testLines.add("Welcome to hack world!");
-            testLines.add("Here you can input your order.");
-            testLines.add("And our console will answer you.");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("bbbbb");
-            testLines.add("Now I wanna say something blablablablabal, and blablablabla"
-                    +"blablablablablablablablabla");
-        }
 
         textView.setMovementMethod(ScrollingMovementMethod.getInstance());
         textView.reset();
         textView.animateText(testLines);
+    }
+
+    public void initData(){
+        if(testLines.size()>0){
+            return;
+        }
+        if(mCheckerType==CHECKER_TYPE_LOGIN){
+            testLines.add("Wake up, matrix has you.");
+            testLines.add("We gonna help you.");
+            testLines.add("First, you need told us your name.");
+            textView.reset();
+            textView.animateText(testLines);
+            textView.invalidate();
+
+        }else if(mCheckerType==CHECKER_TYPE_COMMAND){
+            testLines.add("Now, you are in matrix");
+            textView.reset();
+            textView.animateText(testLines);
+        }
+    }
+
+    public void injectTextLine(String line){
+        testLines.add(line);
+        textView.reset();
+        textView.animateText(testLines);
+        textView.invalidate();
+    }
+
+
+    public void setTerminalCallback(TerminalTextView.DisplayCallback callback){
+        textView.setDisplayCallback(callback);
     }
 }

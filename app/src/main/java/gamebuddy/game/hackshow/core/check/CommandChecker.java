@@ -5,19 +5,14 @@ package gamebuddy.game.hackshow.core.check;
  * created by tindle
  * created time 16/1/14 下午1:01
  */
-public class TerminalChecker {
+public class CommandChecker extends BaseChecker {
 
-    public interface Callback {
-        void onBackResult(String result);
-    }
 
-    Callback mCallback;
-
-    public TerminalChecker(Callback callback){
+    public CommandChecker(Callback callback){
         this.mCallback = callback;
     }
 
-    public void firstCheck(String content){
+    public void startCheck(String content){
         if(content.startsWith("ls")){
             goCheckLs(content);
             return;
@@ -49,12 +44,6 @@ public class TerminalChecker {
         }
     }
 
-    public void putBack(String result){
-        if(mCallback==null){
-            return;
-        } else {
-            mCallback.onBackResult(result);
-        }
-    }
+
 
 }

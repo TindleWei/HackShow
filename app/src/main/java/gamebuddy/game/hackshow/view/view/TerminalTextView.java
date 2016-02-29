@@ -2,7 +2,7 @@ package gamebuddy.game.hackshow.view.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.text.TextPaint;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;
@@ -17,6 +17,11 @@ import java.util.List;
  */
 public class TerminalTextView extends TextView {
 
+    public static final int DISPLAY_LINE_BY_LINE = 0;
+    public static final int DISPLAY_LAST_LINE = 1;
+    private int displayType = 0;
+    private boolean isFirstShow = true;
+
     private String textToDraw = "";
 
     private List<List<String>> wrapperLines = new ArrayList<>();
@@ -25,7 +30,7 @@ public class TerminalTextView extends TextView {
 
     private float lineMul = 1.3f;
 
-    private TextPaint textPaint = new TextPaint();
+    private Paint textPaint;
 
     private int currentLength = 0;
 
@@ -57,10 +62,11 @@ public class TerminalTextView extends TextView {
     public void animateText(List<String> lines) {
         if (lines.size() == 0) return;
 
-        // 初始画笔
+        textPaint = new Paint();
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(this.getTextSize());
         textPaint.setColor(this.getCurrentTextColor());
+        textPaint.setShadowLayer(10, 0, 0, 0xff99cc00);
 
         // 填充数据
         wrapperLines.clear();
@@ -87,7 +93,7 @@ public class TerminalTextView extends TextView {
 
         float x = 0;
         float y = textPaint.getTextSize();
-        for (int i = 0; i < wrapperLines.size()-1; i++) {
+        for (int i = 0; i < wrapperLines.size() - 1; i++) {
             List<String> lines = wrapperLines.get(i);
             for (String text : lines) {
                 canvas.drawText(text, x, y, textPaint);
@@ -98,17 +104,15 @@ public class TerminalTextView extends TextView {
 
         drawLastLine(canvas, y);
 
-        this.invalidate();
 
-        if(actualLines!=0&&actualLines!=oldLines){
+
+        if (actualLines != 0 && actualLines != oldLines) {
             oldLines = actualLines;
             this.requestLayout();
-        }else{
+        } else {
             // 行数不变，不重新绘制高度
             return;
         }
-
-
     }
 
     public void drawLastLine(Canvas canvas, float y) {
@@ -148,17 +152,17 @@ public class TerminalTextView extends TextView {
         }
 
         if (currentLength < allLength) {
-
-//            if(currentLength>=textLines.get(textLines.size()-1).length()){
-//                return;
-//            }
-//            if (textLines.get(textLines.size()-1).charAt(currentLength) == ' ') {
-//                postInvalidateDelayed(48);
-//            } else {
-//                postInvalidateDelayed(16);
-//            }
-//            postInvalidateDelayed(16);
             currentLength++;
+            this.invalidate();
+        } else if(currentLength==allLength){
+            isFirstShow = false;
+            if(displayCallback!=null){
+                displayCallback.onEndDisplayed();
+            }
+            currentLength++;
+            this.invalidate();
+        }else{
+            // nothing
         }
     }
 
@@ -170,12 +174,22 @@ public class TerminalTextView extends TextView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = (int)(textPaint.getTextSize() * lineMul * actualLines);
-        if(height<100){
-            height=100;
+        int height = (int) (this.getTextSize() * lineMul * actualLines);
+        if (height < 100) {
+            height = 100;
         }
 
-        Log.e("FLAG", "line: "+actualLines);
+        Log.e("FLAG", "line: " + actualLines);
         setMeasuredDimension(width, height);
+    }
+
+    public interface DisplayCallback{
+        void onEndDisplayed();
+    }
+
+    public DisplayCallback displayCallback;
+
+    public void setDisplayCallback(DisplayCallback callback){
+        this.displayCallback = callback;
     }
 }

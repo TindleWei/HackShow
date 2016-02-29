@@ -2,6 +2,7 @@ package gamebuddy.game.hackshow.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.tapjoy.Tapjoy;
 import com.tapjoy.TapjoyConnectFlag;
@@ -9,6 +10,7 @@ import com.tapjoy.TapjoyConnectFlag;
 import java.util.Hashtable;
 
 import gamebuddy.game.hackshow.R;
+import gamebuddy.game.hackshow.view.view.MatrixView;
 
 /**
  * describe
@@ -19,7 +21,7 @@ public class WelcomeActivity extends BaseActivity{
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_welcome;
+        return R.layout.activity_test2;
     }
 
     @Override
@@ -29,13 +31,23 @@ public class WelcomeActivity extends BaseActivity{
         // 暂去
         // setupTapjoy();
 
-        findViewById(R.id.view).postDelayed(new Runnable() {
+        final MatrixView matrix_view = (MatrixView) findViewById(R.id.matrix_view);
+
+        matrix_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                matrix_view.animateStart("hackshow");
+            }
+        });
+        matrix_view.animateStart("hackshow");
+
+        matrix_view.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(mContext, RootActivity.class));
+                startActivity(new Intent(mContext, MainActivity.class));
                 finish();
             }
-        },800);
+        }, 5000);
 
     }
 
