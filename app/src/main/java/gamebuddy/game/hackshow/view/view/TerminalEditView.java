@@ -16,7 +16,17 @@ import android.widget.TextView;
  * created by tindle
  * created time 16/2/29 下午6:13
  */
-public class TerminalEditView extends EditText{
+public class TerminalEditView extends EditText {
+
+    public interface EditCallback {
+        void onActionDone(String content);
+    }
+
+    EditCallback mCallback = null;
+
+    public void setEditCallback(EditCallback editCallback) {
+        this.mCallback = editCallback;
+    }
 
     public TerminalEditView(Context context) {
         super(context);
@@ -33,11 +43,11 @@ public class TerminalEditView extends EditText{
         init();
     }
 
-    public void init(){
+    public void init() {
         Paint editPaint = this.getPaint();
         editPaint.setShadowLayer(10, 0, 0, 0xff99cc00);
 
-        this.setRawInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        this.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         this.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         this.addTextChangedListener(new TextWatcher() {
@@ -68,6 +78,11 @@ public class TerminalEditView extends EditText{
                     if (content.equals("")) {
                         return true;
                     } else {
+                        setText("");
+                        if (mCallback != null)
+                            mCallback.onActionDone(content);
+
+
 //                        testLines.add(content);
 //                        v.setText("");
 //                        startShow();
@@ -80,15 +95,15 @@ public class TerminalEditView extends EditText{
         });
     }
 
-    public void limitEditLines(Editable s){
-        if(this.getLineCount()>3){
+    public void limitEditLines(Editable s) {
+        if (this.getLineCount() > 3) {
             String str = s.toString();
             int cursorStart = this.getSelectionStart();
             int cursorEnd = this.getSelectionEnd();
-            if(cursorStart==cursorEnd && cursorStart<str.length()&&cursorStart>=1){
-                str = str.substring(0, cursorStart-1)+str.substring(cursorStart);
-            }else{
-                str = str.substring(0, s.length()-1);
+            if (cursorStart == cursorEnd && cursorStart < str.length() && cursorStart >= 1) {
+                str = str.substring(0, cursorStart - 1) + str.substring(cursorStart);
+            } else {
+                str = str.substring(0, s.length() - 1);
             }
             this.setText(str);
             this.setSelection(this.getText().length());

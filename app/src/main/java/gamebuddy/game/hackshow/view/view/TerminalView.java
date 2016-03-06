@@ -1,20 +1,12 @@
 package gamebuddy.game.hackshow.view.view;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +29,7 @@ public class TerminalView extends FrameLayout{
     private ScrollView scrollView;
     private LinearLayout linearView;
     private TerminalTextView textView;
-    private EditText editView;
+    private TerminalEditView editView;
 
     private List<String> testLines = new ArrayList<>();
 
@@ -68,9 +60,7 @@ public class TerminalView extends FrameLayout{
         scrollView = (ScrollView)containerView.findViewById(R.id.scroll_view);
         linearView = (LinearLayout)containerView.findViewById(R.id.linear_view);
         textView = (TerminalTextView)containerView.findViewById(R.id.text_view);
-        editView = (EditText)containerView.findViewById(R.id.edit_view);
-        Paint editPaint = editView.getPaint();
-        editPaint.setShadowLayer(10, 0, 0, 0xff99cc00);
+        editView = (TerminalEditView)containerView.findViewById(R.id.edit_view);
 
         this.addView(containerView);
 
@@ -95,65 +85,28 @@ public class TerminalView extends FrameLayout{
             }
         });
 
-        editView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                limitEditLines(s);
-            }
-        });
-
-        editView.setRawInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        editView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-        editView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-
-                    String content = v.getText().toString().trim();
-                    if (content.equals("")) {
-                        return true;
-                    } else {
-                        testLines.add(content);
-                        v.setText("");
-                        startShow();
-
-                        terminalChecker.startCheck(content);
-                    }
-                }
-                return true;
-            }
-        });
+//        editView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//
+//                    String content = v.getText().toString().trim();
+//                    if (content.equals("")) {
+//                        return true;
+//                    } else {
+//                        testLines.add(content);
+//                        v.setText("");
+//                        startShow();
+//
+//                        terminalChecker.startCheck(content);
+//                    }
+//                }
+//                return true;
+//            }
+//        });
 
     }
-
-    public void limitEditLines(Editable s){
-        if(editView.getLineCount()>3){
-            String str = s.toString();
-            int cursorStart = editView.getSelectionStart();
-            int cursorEnd = editView.getSelectionEnd();
-            if(cursorStart==cursorEnd && cursorStart<str.length()&&cursorStart>=1){
-                str = str.substring(0, cursorStart-1)+str.substring(cursorStart);
-            }else{
-                str = str.substring(0, s.length()-1);
-            }
-            editView.setText(str);
-            editView.setSelection(editView.getText().length());
-        }
-    }
-
 
     public void startShow() {
 
@@ -170,7 +123,12 @@ public class TerminalView extends FrameLayout{
     }
 
 
-    public void setTerminalCallback(TerminalTextView.DisplayCallback callback){
+    public void setTextCallback(TerminalTextView.DisplayCallback callback){
         textView.setDisplayCallback(callback);
     }
+
+    public void setEditCallback(TerminalEditView.EditCallback callback){
+        editView.setEditCallback(callback);
+    }
+
 }
