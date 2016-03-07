@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="app_theme_color">#ff99cc00</color>
+    <color name="app_theme_darker">#ff669900</color>
+    <color name="app_theme_bg">#202020</color>
+    <color name="app_theme_front">#ff99cc00</color>
+
+    <color name="tab_bg">#00AAF3</color>
+    <color name="tab_indicator">#F75251</color>
+    <color name="label_bg">#F75251</color>
+
+    <!--gamebuddy old item style-->
+    <color name="gray">#80808080</color>
+    <color name="item_bg_selected">#66010208</color>
+    <color name="divider_line">#3fff</color>
+    <color name="indicator_line">#F75251</color>
+    <color name="white_alpha">#88ffffff</color>
+    <color name="header_bg">#090D27</color>
+
+    <color name="pldroid_streaming_white">#fff</color>
+    <color name="pldroid_streaming_red">#f00</color>
+    <color name="pldroid_streaming_yellow">#FFFF00</color>
+</resources>

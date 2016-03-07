@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1f1f1f">
+    android:background="@color/app_theme_bg">
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -19,8 +19,7 @@
                 android:id="@+id/text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#1f1f1f"
-                android:textColor="@android:color/holo_green_dark"
+                android:textColor="@color/app_theme_darker"
                 android:textSize="16dp" />
 
             <gamebuddy.game.hackshow.view.view.TerminalEditView
@@ -32,7 +31,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="textMultiLine|textNoSuggestions"
                 android:maxLines="3"
-                android:textColor="@android:color/holo_green_dark"
+                android:textColor="@color/app_theme_darker"
                 android:textCursorDrawable="@drawable/edit_cursor"
                 android:visibility="visible" />
 

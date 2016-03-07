@@ -196,7 +196,7 @@ public class TerminalTextView extends TextView {
         // 判断大行是否显示完成
         if (currentLength < allLength) {
             currentLength++;
-            this.invalidate();
+            this.postInvalidateDelayed(40);
         } else if (currentLength == allLength) {
             currentLength = 0;
             largeLineIndex++;
@@ -206,7 +206,7 @@ public class TerminalTextView extends TextView {
                     displayCallback.onEndDisplayed();
                 }
             } else {
-                this.postInvalidateDelayed(500);
+                this.postInvalidateDelayed(1000);
             }
         }
     }

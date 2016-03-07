@@ -1,13 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@drawable/border_monitor_type"
+    android:padding="8dp"
     android:orientation="vertical">
 
     <gamebuddy.game.hackshow.view.view.TerminalView
         android:id="@+id/terminal_view"
         android:clickable="true"
-        android:background="@color/material_green"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>
