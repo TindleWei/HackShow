@@ -6,4 +6,32 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">-->
+        <!--<item name="colorPrimary">@color/app_theme_color</item>-->
+        <!--<item name="colorPrimaryDark">@color/app_theme_darker</item>-->
+        <!--<item name="colorAccent">@color/app_theme_color</item>-->
+        <!--<item name="android:windowBackground">@color/app_theme_bg</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/ActivityAnimation</item>-->
+    <!--</style>-->
+
+    <!--<style name="AppBlankTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">-->
+        <!--&lt;!&ndash; Only for WelcomActivity. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/app_theme_color</item>-->
+        <!--<item name="colorPrimaryDark">@color/app_theme_color</item>-->
+        <!--<item name="colorAccent">@color/app_theme_color</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:screenOrientation">portrait</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@drawable/bg_splash</item>-->
+    <!--</style>-->
+
+    <!--<style name="ActivityAnimation" parent="@android:style/Animation">-->
+        <!--<item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>-->
+    <!--</style>-->
+
+
 </resources>

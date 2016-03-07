@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import gamebuddy.game.hackshow.R;
 import gamebuddy.game.hackshow.view.view.TerminalEditView;
-import gamebuddy.game.hackshow.view.view.TerminalTextView;
 import gamebuddy.game.hackshow.view.view.TerminalView;
 
 /**
@@ -43,61 +42,53 @@ public class LoginActivity extends BaseActivity {
         indexLine = 0;
 
         textLines.add("Wake up.");
-        textLines.add("Matrix has you.");
+        textLines.add("Matrix has you.1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
         textLines.add("We gonna help you out.");
         textLines.add("First, you need to tell us your name:");
-
-        terminalView.initWithType(TerminalView.CHECKER_TYPE_LOGIN);
+        textLines.add("1111111111111111111111111");
+        textLines.add("2222222222222222222222222");
+        textLines.add("3333333333333333333333333");
 
         terminalView.postDelayed(new Runnable() {
+
             @Override
             public void run() {
-                terminalView.injectTextLine(textLines.get(0));
-                indexLine++;
+                for (String text : textLines) {
+                    terminalView.injectTextLine(text);
+                }
             }
         }, 600);
 
-        terminalView.setTextCallback(new TerminalTextView.DisplayCallback() {
-            @Override
-            public void onEndDisplayed() {
-                terminalView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (indexLine < textLines.size()) {
-                            terminalView.injectTextLine(textLines.get(indexLine));
-                            indexLine++;
-                        }
-                    }
-                }, 1000);
-            }
-        });
+        terminalView.setEditCallback(new TerminalEditView.EditCallback()
 
-        terminalView.setEditCallback(new TerminalEditView.EditCallback() {
-            @Override
-            public void onActionDone(String content) {
+                                     {
+                                         @Override
+                                         public void onActionDone(String content) {
 
-                terminalView.injectTextLine(content);
-                terminalView.startShow();
+                                             terminalView.injectTextLine(content);
+                                             terminalView.startShow();
 
-                if (setup == 0) {
-                    //当输入名称后
-                    username = content;
-                    //检测用户明是否存在
-                    terminalView.injectTextLine("User name is in checking...");
-                    terminalView.injectTextLine("User name access successful.");
-                    terminalView.injectTextLine("Input your terminal password:");
+                                             if (setup == 0) {
+                                                 //当输入名称后
+                                                 username = content;
+                                                 //检测用户明是否存在
+                                                 terminalView.injectTextLine("User name is in checking...");
+                                                 terminalView.injectTextLine("User name access successful.");
+                                                 terminalView.injectTextLine("Input your terminal password:");
 
-                } else if (setup == 1) {
-                    //当输入密码后
-                    terminalView.injectTextLine("Your password is checking...");
-                    terminalView.injectTextLine("Access Success!");
-                    //服务器 创建新的Terminal
-                    terminalView.injectTextLine("Your terminal is found.");
+                                             } else if (setup == 1) {
+                                                 //当输入密码后
+                                                 terminalView.injectTextLine("Your password is checking...");
+                                                 terminalView.injectTextLine("Access Success!");
+                                                 //服务器 创建新的Terminal
+                                                 terminalView.injectTextLine("Your terminal is found.");
 
-                }
-                setup++;
-            }
-        });
+                                             }
+                                             setup++;
+                                         }
+                                     }
+
+        );
     }
 
     String username = "";

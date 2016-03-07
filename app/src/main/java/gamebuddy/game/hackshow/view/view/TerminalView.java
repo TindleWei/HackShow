@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gamebuddy.game.hackshow.R;
-import gamebuddy.game.hackshow.core.check.CommandChecker;
 
 /**
  * describe
@@ -21,8 +20,8 @@ import gamebuddy.game.hackshow.core.check.CommandChecker;
  */
 public class TerminalView extends FrameLayout{
 
-    public static final int CHECKER_TYPE_LOGIN = 0;
-    public static final int CHECKER_TYPE_COMMAND = 1;
+//    public static final int CHECKER_TYPE_LOGIN = 0;
+//    public static final int CHECKER_TYPE_COMMAND = 1;
     private int mCheckerType = 1;
 
     private View containerView;
@@ -33,7 +32,7 @@ public class TerminalView extends FrameLayout{
 
     private List<String> testLines = new ArrayList<>();
 
-    CommandChecker terminalChecker;
+//    CommandChecker terminalChecker;
 
     public TerminalView(Context context) {
         super(context);
@@ -64,14 +63,14 @@ public class TerminalView extends FrameLayout{
 
         this.addView(containerView);
 
-        terminalChecker = new CommandChecker(new CommandChecker.Callback() {
-            @Override
-            public void onBackResult(String result) {
-                testLines.add(result);
-                startShow();
-                textView.invalidate();
-            }
-        });
+//        terminalChecker = new CommandChecker(new CommandChecker.Callback() {
+//            @Override
+//            public void onBackResult(String result) {
+//                testLines.add(result);
+//                startShow();
+//                textView.invalidate();
+//            }
+//        });
 
         initEvent();
     }
@@ -112,13 +111,14 @@ public class TerminalView extends FrameLayout{
 
         textView.setMovementMethod(ScrollingMovementMethod.getInstance());
         textView.reset();
-        textView.animateText(testLines);
+        textView.resetTextLine(testLines);
     }
 
     public void injectTextLine(String line){
-        testLines.add(line);
+//        testLines.add(line);
         textView.reset();
-        textView.animateText(testLines);
+        textView.insertTextLine(line);
+//        textView.resetTextLine(testLines);
         textView.invalidate();
     }
 
