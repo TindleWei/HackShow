@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * describe
- * created by tindle
- * created time 16/2/8 上午10:51
+ * 像黑客帝国一样的初始动画视图
+ * @author Tindle
+ * @version 1.0.0
  */
-public class MatrixView extends View {
+public class MatrixAnimView extends View {
 
     // 一条数据链对象
     public class MatrixLineEntity {
@@ -41,34 +41,37 @@ public class MatrixView extends View {
     int totalLineNum;
     float totalStartOffset;
 
-    public MatrixView(Context context) {
+    public MatrixAnimView(Context context) {
         super(context);
         init();
     }
 
-    public MatrixView(Context context, AttributeSet attrs) {
+    public MatrixAnimView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public MatrixView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MatrixAnimView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     public void init() {
-        textPaint = new TextPaint();
-        textPaint.setARGB(255, 102, 160, 0);
-
-        int textDp = 16;
+        int textDp = 20;
         float density = getContext().getResources().getDisplayMetrics().density;
         int textSize = (int) (textDp * density + 0.5f);
 
+        textPaint = new TextPaint();
+        textPaint.setAntiAlias(true);
+        textPaint.setARGB(255, 102, 160, 0);
+        textPaint.setShadowLayer(20, 0, 0, 0xff99cc00);
         textPaint.setTextSize(textSize);
 
         textPaint2 = new TextPaint();
+        textPaint2.setAntiAlias(true);
         textPaint2.setARGB(250, 250, 250, 250);
         textPaint2.setTextSize(textSize);
+        textPaint2.setShadowLayer(20, 0, 0, 0xffffffff);
     }
 
     public void setTextContent(String content) {
@@ -84,7 +87,7 @@ public class MatrixView extends View {
 
         // What the matrix text finally look like.
         // ----| | | | |---- //
-        // ----| | | |---- //
+        //  ----| | | |----  //
         char[] chars = content.toCharArray();
         float textSize = textPaint.getTextSize();
         float textRectLength = (chars.length * 2 - 1) * textSize;
@@ -187,7 +190,7 @@ public class MatrixView extends View {
 
 
         }
-        postInvalidateDelayed(32);
+        postInvalidateDelayed(64);
     }
 
     @Override

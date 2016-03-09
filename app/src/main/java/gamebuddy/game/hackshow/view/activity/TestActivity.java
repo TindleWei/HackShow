@@ -15,7 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import gamebuddy.game.hackshow.R;
-import gamebuddy.game.hackshow.view.view.MatrixView;
+import gamebuddy.game.hackshow.view.view.MatrixAnimView;
 import gamebuddy.game.hackshow.view.view.StarwarView;
 
 /**
@@ -33,7 +33,7 @@ public class TestActivity extends AppCompatActivity {
         init();
 
         // Matrix
-//        setContentView(R.layout.activity_test2);
+//        setContentView(R.layout.activity_welcome);
 //        init2();
 
 //        setContentView(R.layout.activity_test3);
@@ -59,7 +59,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void init2() {
-        final MatrixView matrix_view = (MatrixView) findViewById(R.id.matrix_view);
+        final MatrixAnimView matrix_view = (MatrixAnimView) findViewById(R.id.matrix_view);
 
         matrix_view.setOnClickListener(new View.OnClickListener() {
             @Override
